@@ -89,7 +89,7 @@ class Informe(models.Model):
     fecha = models.DateField()
     resultado = models.TextField()
     id_usuario = models.ForeignKey(
-    'plan.CustomUser',  # Con C mayúscula
+    'plan.CustomUser',  #hacemos referencia a users, pero desde nuestro custom
     on_delete=models.CASCADE
 )
     id_medida = models.ForeignKey('Medida', on_delete=models.CASCADE)
