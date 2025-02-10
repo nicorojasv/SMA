@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class Plan(models.Model):
     id_plan = models.AutoField(primary_key=True)
-    codigo = models.CharField(max_length=50)
+    codigo = models.CharField(max_length=50, unique=True)
     nombre = models.CharField(max_length=50)
     fecha_registro = models.DateField()
     comuna = models.CharField(max_length=50)
@@ -16,7 +16,9 @@ class Medida(models.Model):
     id_medida = models.AutoField(primary_key=True)
     indicador = models.CharField(max_length=100)
     nombre = models.CharField(max_length=100)
-    formula_calculo = models.TextField()
+    formula_calculo = models.TextField(
+        null=False, 
+        blank=False)
     descripcion = models.TextField()
     id_tipo_medida = models.ForeignKey(
         'TipoMedida',
@@ -39,15 +41,16 @@ class Medida(models.Model):
 class OrganismoSectorial(models.Model):
     id_organismo_sectorial = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
-    sigla = models.CharField(max_length=50)
+    sigla = models.CharField(max_length=50, unique=True, blank=False)
     descripcion = models.TextField()
+    
 
     def __str__(self):
         return f"{self.nombre} {self.sigla}"
     
 class TipoMedida(models.Model):
     id_tipo_medida = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=50, null=False)
     descripcion = models.TextField()
 
     def __str__(self):
@@ -57,6 +60,9 @@ class TipoMedida(models.Model):
 class Documento(models.Model):
     id_documento = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
+    fecha = models.DateField(auto_now=True)
+    descripcion = models.TextField()
+    estado = models.BooleanField(default=True)
     archivo = models.FileField(upload_to='documentos/')
     id_informe = models.ForeignKey(
         'Informe',
@@ -68,8 +74,7 @@ class Documento(models.Model):
 class CustomUser(AbstractUser):
     USERNAME_FIELD = 'rut' #para que los usuarios se logeen con el rut
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name'] #datos basicos requeridos al crear user por shell
-
-
+    telefono = models.CharField()
     rut = models.CharField( 
         max_length=12,
         unique=True,
@@ -88,8 +93,10 @@ class Informe(models.Model):
     id_informe = models.AutoField(primary_key=True)
     fecha = models.DateField()
     resultado = models.TextField()
+    unidad_fizcalizable = models.CharField()
+    descripcion = models.TextField(null=True)
     id_usuario = models.ForeignKey(
-    'plan.CustomUser',  # Con C mayúscula
+    'plan.CustomUser',  #hacemos referencia a users, pero desde nuestro custom
     on_delete=models.CASCADE
 )
     id_medida = models.ForeignKey('Medida', on_delete=models.CASCADE)
