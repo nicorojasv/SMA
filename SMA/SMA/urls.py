@@ -25,8 +25,8 @@ from plan.views import PlanViewSet, MedidaViewSet, OrganismoSectorialViewSet, Ti
 router = DefaultRouter()
 
 router.register(r'planes', PlanViewSet)
-router.register(r'medidas', MedidaViewSet)
-router.register(r'Organismos_sectoriales', OrganismoSectorialViewSet)
+router.register(r'medidas', MedidaViewSet, basename='medida')
+router.register(r'organismos_sectoriales', OrganismoSectorialViewSet)
 router.register(r'tipo_medidas', TipoMedidaViewSet)
 router.register(r'documentos', DocumentoViewSet)
 router.register(r'informes', InformeViewSet)

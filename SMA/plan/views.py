@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from .models import Plan, Medida, OrganismoSectorial, TipoMedida, Documento, Informe, CustomUser
 from plan.serializers import (
     PlanSerializer, 
@@ -15,9 +16,24 @@ class PlanViewSet(viewsets.ModelViewSet):
     serializer_class = PlanSerializer
 
 class MedidaViewSet(viewsets.ModelViewSet):
-    queryset = Medida.objects.all()
     serializer_class = MedidaSerializer
-
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        usuario = self.request.user
+        
+        # Si el usuario es superuser, retorna todas las medidas
+        if usuario.is_superuser:
+            return Medida.objects.all()
+            
+        # Si el usuario tiene un organismo sectorial asignado
+        if usuario.id_organismo_sectorial:
+            return Medida.objects.filter(
+                id_organismo_sectorial=usuario.id_organismo_sectorial
+            )
+        
+        # Si el usuario no tiene organismo y no es superuser
+        return Medida.objects.none()
 class OrganismoSectorialViewSet(viewsets.ModelViewSet):  # Cambiado de MethodMapper
     queryset = OrganismoSectorial.objects.all()
     serializer_class = OrganismoSectorialSerializer
