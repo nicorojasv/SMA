@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 from .models import Plan, Medida, OrganismoSectorial, TipoMedida, Documento, Informe, CustomUser
 from plan.serializers import (
@@ -34,22 +35,27 @@ class MedidaViewSet(viewsets.ModelViewSet):
         
         # Si el usuario no tiene organismo y no es superuser
         return Medida.objects.none()
-class OrganismoSectorialViewSet(viewsets.ModelViewSet):  # Cambiado de MethodMapper
+class OrganismoSectorialViewSet(viewsets.ModelViewSet):
     queryset = OrganismoSectorial.objects.all()
     serializer_class = OrganismoSectorialSerializer
 
-class TipoMedidaViewSet(viewsets.ModelViewSet):  # Cambiado de MethodMapper
+class TipoMedidaViewSet(viewsets.ModelViewSet):
     queryset = TipoMedida.objects.all()
     serializer_class = TipoMedidaSerializer
 
-class DocumentoViewSet(viewsets.ModelViewSet):  # Cambiado de MethodMapper
+    def validate_nombre(self, value):
+        if not value:
+            raise serializers.ValidationError("El campo nombre es Obligatorio ")
+        return value
+
+class DocumentoViewSet(viewsets.ModelViewSet):
     queryset = Documento.objects.all()
     serializer_class = DocumentoSerializer
 
-class InformeViewSet(viewsets.ModelViewSet):  # Cambiado de MethodMapper
+class InformeViewSet(viewsets.ModelViewSet):
     queryset = Informe.objects.all()
     serializer_class = InformeSerializer
 
-class CustomUserViewSet(viewsets.ModelViewSet):  # Cambiado de MethodMapper
+class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
