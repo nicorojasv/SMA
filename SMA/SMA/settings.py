@@ -64,7 +64,7 @@ ROOT_URLCONF = 'SMA.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],  # Agregamos el directorio de templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,6 +94,19 @@ DATABASES = {
     }
     
 }
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'neondb',  # Nombre de la base de datos
+#        'USER': 'neondb_owner',  # Usuario de la base de datos
+#        'PASSWORD': 'tIwRv2Bl9NrK',  # Contraseña para el usuario
+#        'HOST': 'ep-cold-dawn-a51nuugi-pooler.us-east-2.aws.neon.tech',  # Host donde está alojada la base de datos
+#        'PORT': '5432',  # Puerto por defecto de PostgreSQL
+#        'OPTIONS': {
+#            'sslmode': 'require',  # Requerido para conexiones seguras
+#        },
+#    }
+#}
 
 
 # Password validation
