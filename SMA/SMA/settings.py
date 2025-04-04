@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'SMA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME',default='SMA'),
+        'NAME': os.getenv('DB_NAME',default='SMAa'),
         'USER': os.getenv('DB_USER',default='postgres'),
         'PASSWORD': os.getenv('DB_PASSWORD',default='root'),
         'HOST': os.getenv('DB_HOST', default='localhost'),
