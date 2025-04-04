@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from .models import Plan, Medida, OrganismoSectorial, TipoMedida, Documento, Informe, CustomUser
 from plan.serializers import (
     PlanSerializer, 
@@ -104,22 +104,25 @@ class MedidaViewSet(viewsets.ModelViewSet):
         
         # Si el usuario no tiene organismo y no es superuser
         return Medida.objects.none()
-class OrganismoSectorialViewSet(viewsets.ModelViewSet):  # Cambiado de MethodMapper
+class OrganismoSectorialViewSet(viewsets.ModelViewSet): 
+    permission_classes = [IsAdminUser]
     queryset = OrganismoSectorial.objects.all()
     serializer_class = OrganismoSectorialSerializer
 
-class TipoMedidaViewSet(viewsets.ModelViewSet):  # Cambiado de MethodMapper
+class TipoMedidaViewSet(viewsets.ModelViewSet): 
+
+    permission_classes = [IsAdminUser]
     queryset = TipoMedida.objects.all()
     serializer_class = TipoMedidaSerializer
 
-class DocumentoViewSet(viewsets.ModelViewSet):  # Cambiado de MethodMapper
+class DocumentoViewSet(viewsets.ModelViewSet): 
     queryset = Documento.objects.all()
     serializer_class = DocumentoSerializer
 
-class InformeViewSet(viewsets.ModelViewSet):  # Cambiado de MethodMapper
+class InformeViewSet(viewsets.ModelViewSet): 
     queryset = Informe.objects.all()
     serializer_class = InformeSerializer
 
-class CustomUserViewSet(viewsets.ModelViewSet):  # Cambiado de MethodMapper
+class CustomUserViewSet(viewsets.ModelViewSet): 
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
