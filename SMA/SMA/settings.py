@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import environ
 import os
+import dotenv
+
+dotenv.load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -86,11 +89,11 @@ WSGI_APPLICATION = 'SMA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DB_NAME',default='SMA'),
-        'USER': env('DB_USER',default='postgres'),
-        'PASSWORD': env('DB_PASSWORD',default='root'),
-        'HOST': env('DB_HOST', default='localhost'),
-        'PORT': env('DB_PORT', default='5432'),
+        'NAME': os.getenv('DB_NAME',default='SMA'),
+        'USER': os.getenv('DB_USER',default='postgres'),
+        'PASSWORD': os.getenv('DB_PASSWORD',default='root'),
+        'HOST': os.getenv('DB_HOST', default='localhost'),
+        'PORT': os.getenv('DB_PORT', default='5432'),
     }
     
 }
