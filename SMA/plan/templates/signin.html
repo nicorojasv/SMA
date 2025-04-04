@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow-lg p-4 rounded" style="max-width: 400px; width: 100%;">
+        <div class="card-body">
+            <h2 class="text-center mb-4 text-primary">Iniciar Sesión</h2>
+
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form action="/signin/" method="POST" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_username" class="form-label">Nombre de usuario</label>
+                    <input type="text" name="username" id="id_username" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_password" class="form-label">Contraseña</label>
+                    <input type="password" name="password" id="id_password" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+            </form>
+
+            <div class="text-center mt-3">
+                ¿No tienes una cuenta? <a href="/signup" class="text-decoration-none text-primary">Regístrate aquí</a>.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
