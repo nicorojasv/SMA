@@ -1,7 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
-class Plan(models.Model):
+
+
+class AuditableModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    usuario_creador = models.ForeignKey(
+        'CustomUser',
+        related_name='%(class)s_creados',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        abstract = True
+
+class Plan(AuditableModel):
     codigo = models.CharField(max_length=50, unique=True)
     nombre = models.CharField(max_length=50)
     fecha_registro = models.DateField()
@@ -11,7 +27,7 @@ class Plan(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.codigo} {self.estado}"
 
-class Medida(models.Model):
+class Medida(AuditableModel):
     indicador = models.CharField(max_length=100)
     nombre = models.CharField(max_length=100)
     formula_calculo = models.TextField(
@@ -36,16 +52,20 @@ class Medida(models.Model):
         return f"{self.nombre} {self.descripcion}  {self.plan.nombre} "
 
 
-class OrganismoSectorial(models.Model):
+class OrganismoSectorial(AuditableModel):
     nombre = models.CharField(max_length=50)
     sigla = models.CharField(max_length=50, unique=True, blank=False)
     descripcion = models.TextField()
+    comuna = models.ForeignKey(
+        'Comuna',
+        on_delete=models.CASCADE
+    )
     
 
     def __str__(self):
         return f"{self.nombre} {self.sigla}"
     
-class TipoMedida(models.Model):
+class TipoMedida(AuditableModel):
     nombre = models.CharField(max_length=50, null=False)
     descripcion = models.TextField()
 
@@ -53,7 +73,7 @@ class TipoMedida(models.Model):
         return f"{self.nombre} {self.descripcion}"
     
 
-class Documento(models.Model):
+class Documento(AuditableModel):
     nombre = models.CharField(max_length=50)
     fecha = models.DateField(auto_now=True)
     descripcion = models.TextField()
@@ -84,7 +104,7 @@ class CustomUser(AbstractUser):
         blank=True  # permite que  sea opcional
     )
 
-class Reporte(models.Model):
+class Reporte(AuditableModel):
     fecha = models.DateField()
     resultado = models.TextField()
     unidad_fizcalizable = models.CharField()
@@ -97,3 +117,11 @@ class Reporte(models.Model):
 
     def __str__(self):
         return f"{self.fecha} {self.descripcion} {self.medida.nombre}"
+    
+
+class Comuna(models.Model):
+    nombre = models.CharField()
+
+    def __str__(self) -> str:
+        return f"{self.nombre}"
+    
