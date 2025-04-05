@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Plan, Medida, OrganismoSectorial, TipoMedida, Documento, CustomUser, Informe
+from .models import Plan, Medida, OrganismoSectorial, TipoMedida, Documento, CustomUser, Reporte
 
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
@@ -12,8 +12,8 @@ class PlanAdmin(admin.ModelAdmin):
 
 @admin.register(Medida)
 class MedidaAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'indicador', 'id_plan', 'id_organismo_sectorial')
-    list_filter = ( 'id_organismo_sectorial', 'id_plan')
+    list_display = ('nombre', 'indicador', 'plan', 'organismo_sectorial')
+    list_filter = ('organismo_sectorial', 'plan')
     search_fields = ('nombre',)
 
 @admin.register(OrganismoSectorial)
@@ -29,22 +29,21 @@ class TipoMedidaAdmin(admin.ModelAdmin):
 
 @admin.register(Documento)
 class DocumentoAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'fecha', 'id_informe')
-    list_filter = ('id_informe', 'fecha')
-    search_fields = ('nombre', )
+    list_display = ('nombre', 'fecha', 'reporte')
+    list_filter = ('reporte', 'fecha')
+    search_fields = ('nombre',)
 
 class CustomUserAdmin(UserAdmin):
-    list_display = ('rut',  'first_name', 'last_name', 'id_organismo_sectorial',)
-    list_filter = ('is_active', 'id_organismo_sectorial')
+    list_display = ('rut', 'first_name', 'last_name', 'organismo_sectorial',)
+    list_filter = ('is_active', 'organismo_sectorial')
     search_fields = ('rut', 'first_name', 'last_name')
     ordering = ('rut',)
-   
 
-@admin.register(Informe)
-class InformeAdmin(admin.ModelAdmin):
-    list_display = ('fecha', 'unidad_fizcalizable', 'id_medida')
-    list_filter = ('fecha', 'id_usuario', 'id_medida')
-    search_fields = ('unidad_fizcalizable', 'id_medida', )
+@admin.register(Reporte)
+class ReporteAdmin(admin.ModelAdmin):
+    list_display = ('fecha', 'unidad_fizcalizable', 'medida')
+    list_filter = ('fecha', 'usuario', 'medida')
+    search_fields = ('unidad_fizcalizable',)
     ordering = ('-fecha',)
 
 admin.site.register(CustomUser, CustomUserAdmin)

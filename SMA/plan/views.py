@@ -1,13 +1,13 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
-from .models import Plan, Medida, OrganismoSectorial, TipoMedida, Documento, Informe, CustomUser
+from .models import Plan, Medida, OrganismoSectorial, TipoMedida, Documento, Reporte, CustomUser
 from plan.serializers import (
     PlanSerializer, 
     MedidaSerializer, 
     OrganismoSectorialSerializer,
     TipoMedidaSerializer, 
     DocumentoSerializer, 
-    InformeSerializer, 
+    ReporteSerializer, 
     CustomUserSerializer
 )
 from django.shortcuts import render, redirect
@@ -119,9 +119,9 @@ class DocumentoViewSet(viewsets.ModelViewSet):
     queryset = Documento.objects.all()
     serializer_class = DocumentoSerializer
 
-class InformeViewSet(viewsets.ModelViewSet): 
-    queryset = Informe.objects.all()
-    serializer_class = InformeSerializer
+class ReporteViewSet(viewsets.ModelViewSet): 
+    queryset = Reporte.objects.all()
+    serializer_class = ReporteSerializer
 
 class CustomUserViewSet(viewsets.ModelViewSet): 
     queryset = CustomUser.objects.all()

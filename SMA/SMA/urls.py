@@ -19,7 +19,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from plan.views import PlanViewSet, MedidaViewSet, OrganismoSectorialViewSet, TipoMedidaViewSet, DocumentoViewSet, InformeViewSet, CustomUserViewSet
+from plan.views import PlanViewSet, MedidaViewSet, OrganismoSectorialViewSet, TipoMedidaViewSet, DocumentoViewSet, ReporteViewSet, CustomUserViewSet
 from plan import views
 from plan.views import panel_sma  
 
@@ -31,7 +31,7 @@ router.register(r'medidas', MedidaViewSet, basename='medida')
 router.register(r'organismos_sectoriales', OrganismoSectorialViewSet)
 router.register(r'tipo_medidas', TipoMedidaViewSet)
 router.register(r'documentos', DocumentoViewSet)
-router.register(r'informes', InformeViewSet)
+router.register(r'reporte', ReporteViewSet)
 router.register(r'usuarios', CustomUserViewSet)
 
 
