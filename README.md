@@ -185,12 +185,12 @@ La documentación de la API está disponible en:
 
 ## Contacto
 
-Camila Oyarzún
-Stefanya Pulgar
-Nicolas Rojas
-luis Paillan
-Cristóbal Gajardo
-Carlos Azócar
+- Camila Oyarzún
+- Stefanya Pulgar
+- Nicolas Rojas
+- luis Paillan
+- Cristóbal Gajardo
+- Carlos Azócar
 
 ## Estado del Proyecto
 
@@ -199,6 +199,6 @@ Carlos Azócar
 ## Métricas del Proyecto
 
 - Documentación API: 100%
-- Versión actual: [1.0]
+- Versión actual: 1.0
 
 
