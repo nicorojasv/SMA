@@ -1,4 +1,4 @@
-# Sistema de Gestión Ambiental (SMA)
+# Sistema de Gestión Ambiental
 
 ## Descripción
 
