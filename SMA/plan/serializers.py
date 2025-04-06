@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Plan, Medida, OrganismoSectorial, TipoMedida, Documento,Informe,CustomUser
+from .models import Plan, Medida, OrganismoSectorial, TipoMedida, Documento,Reporte,CustomUser
 
 class PlanSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,9 +26,9 @@ class TipoMedidaSerializer(serializers.ModelSerializer):
         model = TipoMedida
         fields = '__all__'
 
-class InformeSerializer(serializers.ModelSerializer):
+class ReporteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Informe
+        model = Reporte
         fields = '__all__'
 
 class CustomUserSerializer(serializers.ModelSerializer):
