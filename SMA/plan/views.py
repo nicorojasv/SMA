@@ -29,16 +29,11 @@ def signup(request):
         return render(request, 'signup.html', {"form": CustomUserCreationForm()})
     else:
         form = CustomUserCreationForm(request.POST)
+        print("Formulario válido")
         if form.is_valid():
+            
             try:
                 user = form.save(commit=False)
-                user.username = form.cleaned_data['username']
-                user.first_name = form.cleaned_data['first_name']
-                user.last_name = form.cleaned_data['last_name']
-                user.email = form.cleaned_data['email']
-                user.telefono = form.cleaned_data['telefono']
-                user.rut = form.cleaned_data['rut']
-                #user.id_organismo_sectorial = form.cleaned_data['id_organismo_sectorial']
                 user.set_password(form.cleaned_data['password1'])
                 user.save()
                 login(request, user)
@@ -61,6 +56,8 @@ def signup(request):
 
         return render(request, 'signup.html', {"form": form})
     
+
+    
 def signin(request):
     if request.method == 'GET':
         return render(request, 'signin.html', {"form": AuthenticationForm()})
@@ -68,7 +65,7 @@ def signin(request):
         user = authenticate(
             request, username=request.POST['username'], password=request.POST['password'])
         if user is None:
-            return render(request, 'signin.html', {"form": AuthenticationForm(), "error": "Username or password is incorrect."})
+            return render(request, 'signin.html', {"form": AuthenticationForm(), "error": "El usuario o password es incorrecto."})
 
         login(request, user)
         return redirect('home')

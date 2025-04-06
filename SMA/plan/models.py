@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from .utils import validate_rut, validate_phone
 # Create your models here.
 
 
@@ -89,10 +90,11 @@ class Documento(AuditableModel):
 class CustomUser(AbstractUser):
     USERNAME_FIELD = 'rut' #para que los usuarios se logeen con el rut
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name'] #datos basicos requeridos al crear user por shell
-    telefono = models.CharField()
+    telefono = models.CharField(max_length=20,validators=[validate_phone], blank=True)
     rut = models.CharField( 
         max_length=12,
         unique=True,
+        validators=[validate_rut],  # Validación personalizada
         error_messages={
             'unique': 'Ya existe un usuario con este RUT registrado.'
         }

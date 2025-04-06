@@ -39,6 +39,24 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('rut', 'first_name', 'last_name')
     ordering = ('rut',)
 
+    add_fieldsets = (
+        (None, {
+            'fields': ('rut', 'username', 'password1', 'password2', 'first_name', 'last_name', 'email', 'telefono', 'organismo_sectorial')
+        }),
+    )
+
+    fieldsets = (
+        (None, {
+            'fields': ('rut', 'username', 'password', 'first_name', 'last_name', 'email', 'telefono', 'organismo_sectorial')
+        }),
+        ('Permissions', {
+            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')
+        }),
+        ('Important dates', {
+            'fields': ('last_login', 'date_joined')
+        }),
+    )
+
 @admin.register(Reporte)
 class ReporteAdmin(admin.ModelAdmin):
     list_display = ('fecha', 'unidad_fizcalizable', 'medida')
