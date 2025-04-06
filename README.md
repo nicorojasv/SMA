@@ -55,7 +55,7 @@ El sistema está orientado a usuarios/as de la Superintendencia del Medio Ambien
 - ReDoc para documentación alternativa
 - Documentación de código con docstrings
 
-## ⚙️ Requisitos Previos
+## Requisitos Previos
 
 ### Software
 - Python 3.x
@@ -123,7 +123,7 @@ El sistema está orientado a usuarios/as de la Superintendencia del Medio Ambien
    python manage.py createsuperuser
    ```
 
-## ▶️ Uso
+## Uso
 
 ### Desarrollo
 ```bash
@@ -183,7 +183,7 @@ La documentación de la API está disponible en:
 - Swagger UI: http://127.0.0.1:8000/api/docs/
 - Esquema OpenAPI: http://127.0.0.1:8000/api/schema/
 
-## ✉️ Contacto
+## Contacto
 
 Camila Oyarzún
 Stefanya Pulgar
