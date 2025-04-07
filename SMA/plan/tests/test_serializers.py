@@ -34,7 +34,7 @@ def plan(organismo_sectorial):
         codigo="PLAN-001",
         nombre="Plan Test",
         fecha_registro="2024-01-01",
-        comuna="Santiago",
+        comuna=comuna,
         estado=True
     )
 
@@ -103,7 +103,6 @@ def test_plan_serializer_create(organismo_sectorial):
         'codigo': 'PLAN-002',
         'nombre': 'Nuevo Plan',
         'fecha_registro': '2024-01-01',
-        'comuna': 'Santiago',
         'estado': True
     }
     serializer = PlanSerializer(data=data)
