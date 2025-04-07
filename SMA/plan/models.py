@@ -22,7 +22,10 @@ class Plan(AuditableModel):
     codigo = models.CharField(max_length=50, unique=True)
     nombre = models.CharField(max_length=50)
     fecha_registro = models.DateField()
-    comuna = models.CharField(max_length=50)
+    comuna = models.ForeignKey(
+        'Comuna',
+        on_delete=models.CASCADE
+    )
     estado = models.BooleanField()
 
     def __str__(self):
