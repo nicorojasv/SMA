@@ -29,7 +29,7 @@ def tipo_medida():
     )
 
 @pytest.fixture
-def plan(organismo_sectorial):
+def plan(organismo_sectorial, comuna):
     return Plan.objects.create(
         codigo="PLAN-001",
         nombre="Plan Test",
@@ -98,11 +98,12 @@ def test_custom_user_serializer(user):
     assert data['telefono'] == "912345678"
 
 @pytest.mark.django_db
-def test_plan_serializer_create(organismo_sectorial):
+def test_plan_serializer_create(organismo_sectorial, comuna):
     data = {
         'codigo': 'PLAN-002',
         'nombre': 'Nuevo Plan',
         'fecha_registro': '2024-01-01',
+        'comuna': comuna.id, 
         'estado': True
     }
     serializer = PlanSerializer(data=data)

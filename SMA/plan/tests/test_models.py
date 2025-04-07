@@ -26,7 +26,7 @@ def tipo_medida():
     )
 
 @pytest.fixture
-def plan(organismo_sectorial):
+def plan(organismo_sectorial,comuna):
     return Plan.objects.create(
         codigo="PLAN-001",
         nombre="Plan Test",
