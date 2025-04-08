@@ -20,6 +20,9 @@ from plan.models import CustomUser
 from plan.forms import CustomUserCreationForm
 from psycopg2 import errors
 
+from plan.permissions import EsAdministrador, EsFiscalizador, EsOrganismoSectorial
+
+
 
 def home(request):
     """
@@ -133,6 +136,7 @@ class PlanViewSet(viewsets.ModelViewSet):
     """
     queryset = Plan.objects.all()
     serializer_class = PlanSerializer
+    permission_classes = [IsAuthenticated, EsFiscalizador]
 
 class MedidaViewSet(viewsets.ModelViewSet):
     """
@@ -144,7 +148,7 @@ class MedidaViewSet(viewsets.ModelViewSet):
         - Los superusuarios ven todas las medidas
     """
     serializer_class = MedidaSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, EsOrganismoSectorial | EsFiscalizador]
     
     def get_queryset(self):
         usuario = self.request.user
@@ -168,7 +172,7 @@ class OrganismoSectorialViewSet(viewsets.ModelViewSet):
     Permisos:
         - Requiere ser administrador
     """
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser, EsFiscalizador]
     queryset = OrganismoSectorial.objects.all()
     serializer_class = OrganismoSectorialSerializer
 
@@ -179,7 +183,7 @@ class TipoMedidaViewSet(viewsets.ModelViewSet):
     Permisos:
         - Requiere ser administrador
     """
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser, EsFiscalizador | EsOrganismoSectorial]
     queryset = TipoMedida.objects.all()
     serializer_class = TipoMedidaSerializer
 
@@ -192,6 +196,7 @@ class DocumentoViewSet(viewsets.ModelViewSet):
     """
     queryset = Documento.objects.all()
     serializer_class = DocumentoSerializer
+    permission_classes = [IsAuthenticated, EsFiscalizador]
 
 class ReporteViewSet(viewsets.ModelViewSet): 
     """
@@ -202,6 +207,7 @@ class ReporteViewSet(viewsets.ModelViewSet):
     """
     queryset = Reporte.objects.all()
     serializer_class = ReporteSerializer
+    permission_classes = [IsAuthenticated, EsFiscalizador]
 
 class CustomUserViewSet(viewsets.ModelViewSet): 
     """
@@ -212,3 +218,4 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     """
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+    permission_classes = [IsAuthenticated, EsAdministrador]
