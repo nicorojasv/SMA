@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Plan, Medida, OrganismoSectorial, TipoMedida, Documento, CustomUser, Reporte
+from .models import Plan, Medida, OrganismoSectorial, TipoMedida, Documento, CustomUser, Reporte, Comuna
 
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
@@ -65,3 +65,4 @@ class ReporteAdmin(admin.ModelAdmin):
     ordering = ('-fecha',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Comuna)
