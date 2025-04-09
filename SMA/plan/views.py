@@ -136,7 +136,7 @@ class PlanViewSet(viewsets.ModelViewSet):
     """
     queryset = Plan.objects.all()
     serializer_class = PlanSerializer
-    permission_classes = [IsAuthenticated, EsFiscalizador]
+    permission_classes = [IsAuthenticated, EsFiscalizador |  EsAdministrador]
 
 class MedidaViewSet(viewsets.ModelViewSet):
     """
@@ -148,7 +148,7 @@ class MedidaViewSet(viewsets.ModelViewSet):
         - Los superusuarios ven todas las medidas
     """
     serializer_class = MedidaSerializer
-    permission_classes = [IsAuthenticated, EsOrganismoSectorial | EsFiscalizador]
+    permission_classes = [IsAuthenticated, EsOrganismoSectorial | EsFiscalizador |  EsAdministrador ] 
     
     def get_queryset(self):
         usuario = self.request.user
@@ -172,7 +172,7 @@ class OrganismoSectorialViewSet(viewsets.ModelViewSet):
     Permisos:
         - Requiere ser administrador
     """
-    permission_classes = [IsAdminUser, EsFiscalizador]
+    permission_classes = [IsAdminUser, EsFiscalizador  | EsAdministrador]
     queryset = OrganismoSectorial.objects.all()
     serializer_class = OrganismoSectorialSerializer
 
@@ -183,7 +183,7 @@ class TipoMedidaViewSet(viewsets.ModelViewSet):
     Permisos:
         - Requiere ser administrador
     """
-    permission_classes = [IsAdminUser, EsFiscalizador | EsOrganismoSectorial]
+    permission_classes = [IsAdminUser, EsFiscalizador | EsOrganismoSectorial | EsAdministrador]
     queryset = TipoMedida.objects.all()
     serializer_class = TipoMedidaSerializer
 
@@ -196,7 +196,7 @@ class DocumentoViewSet(viewsets.ModelViewSet):
     """
     queryset = Documento.objects.all()
     serializer_class = DocumentoSerializer
-    permission_classes = [IsAuthenticated, EsFiscalizador]
+    permission_classes = [IsAuthenticated, EsFiscalizador | EsAdministrador]
 
 class ReporteViewSet(viewsets.ModelViewSet): 
     """
@@ -207,7 +207,7 @@ class ReporteViewSet(viewsets.ModelViewSet):
     """
     queryset = Reporte.objects.all()
     serializer_class = ReporteSerializer
-    permission_classes = [IsAuthenticated, EsFiscalizador]
+    permission_classes = [IsAuthenticated, EsFiscalizador | EsAdministrador]
 
 class CustomUserViewSet(viewsets.ModelViewSet): 
     """
