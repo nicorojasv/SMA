@@ -17,7 +17,17 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Run tests
+      - name: Create test settings
         run: |
           cd SMA
-          DJANGO_SETTINGS_MODULE=SMA.settings pytest
+          echo "from SMA.settings import *" > test_settings.py
+          echo "DATABASES = {" >> test_settings.py
+          echo "    'default': {" >> test_settings.py
+          echo "        'ENGINE': 'django.db.backends.sqlite3'," >> test_settings.py
+          echo "        'NAME': ':memory:'," >> test_settings.py
+          echo "    }" >> test_settings.py
+          echo "}" >> test_settings.py
+      - name: Run tests with pytest
+        run: |
+          cd SMA
+          DJANGO_SETTINGS_MODULE=SMA.test_settings pytest plan/tests/test_utils.py -v
