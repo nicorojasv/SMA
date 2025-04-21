@@ -32,10 +32,17 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = 'django-insecure-)6-t0a-)%#nma9421++zy!38+%$2e&%l%#epg+&_hc487ij6i%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Directorio adicional donde Django buscará archivos estáticos
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Application definition
 
