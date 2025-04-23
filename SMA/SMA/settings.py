@@ -29,7 +29,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = '2pj8%y$6ufwnz!rm$1i8$kmqv+=ug1!6o*l7zb1v^1vp@a2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False") == "True"
@@ -100,6 +100,10 @@ DATABASES = {
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': os.getenv('DB_HOST', 'localhost'),
         'PORT': os.getenv('DB_PORT', '5432'),
+        'OPTIONS': {
+            'sslmode': 'require' if not DEBUG else 'disable',
+        },
+        'DISABLE_SERVER_SIDE_CURSORS': not DEBUG,  # Solo desactiva cursores si NO estamos en DEBUG
     }
 }
 #DATABASES = {
