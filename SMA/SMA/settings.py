@@ -32,7 +32,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = 'django-insecure-)6-t0a-)%#nma9421++zy!38+%$2e&%l%#epg+&_hc487ij6i%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS =  ['sma-mjiy.onrender.com', 'localhost', '127.0.0.1']
 
