@@ -200,5 +200,5 @@ La documentación de la API está disponible en:
 
 - Documentación API: 100%
 - Versión actual: 1.0
-
+ 
 
