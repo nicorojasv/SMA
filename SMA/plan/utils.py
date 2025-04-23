@@ -2,6 +2,22 @@ import re
 from django.core.exceptions import ValidationError
 
 def validate_rut(value): 
+    """
+    Valida el RUT chileno.
+
+    El RUT debe tener el formato '12345678-5' o '12345678-K'.
+
+    Args:
+        value (str): El RUT a validar.
+    
+    Raises:
+        ValidationError: Si el RUT no es válido o no tiene el formato correcto.
+    
+    Returns:
+        None: Si el RUT es válido.
+    
+    """
+
     value = value.upper().replace(".", "")
 
     if not re.match(r'^\d{7,8}-[0-9Kk]$', value):
@@ -38,6 +54,18 @@ def validate_rut(value):
     
 
 def validate_phone(value):
+    """
+    Valida el número telefónico chileno.
+    
+    Args:
+        value (str): El número telefónico a validar.
+
+    Raises:
+        ValidationError: Si el número telefónico no es válido.
+    
+    Returns:
+        str: El número telefónico validado.
+    """
     value = value.strip()
     if not re.match(r'^9\d{8}$', value):
         raise ValidationError("El número telefónico no es válido. Debe comenzar con 9 y tener 9 dígitos.")
