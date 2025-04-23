@@ -100,10 +100,6 @@ DATABASES = {
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': os.getenv('DB_HOST', 'localhost'),
         'PORT': os.getenv('DB_PORT', '5432'),
-        'OPTIONS': {
-            'sslmode': 'require' if not DEBUG else 'disable',
-        },
-        'DISABLE_SERVER_SIDE_CURSORS': not DEBUG,  # Solo desactiva cursores si NO estamos en DEBUG
     }
 }
 #DATABASES = {
