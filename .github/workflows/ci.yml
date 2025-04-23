@@ -37,5 +37,6 @@ jobs:
           DB_PASSWORD: postgres
           DB_HOST: localhost
           DB_PORT: 5432
+          DB_SSLMODE: disable
         run: |
           python -m pytest
