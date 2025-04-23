@@ -98,14 +98,13 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-        "OPTIONS": {
-            "sslmode": "require",
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
+        'OPTIONS': {
+            'sslmode': 'require' if not DEBUG else 'disable',
         },
-        "DISABLE_SERVER_SIDE_CURSORS": True,
+        'DISABLE_SERVER_SIDE_CURSORS': not DEBUG,  # Solo desactiva cursores si NO estamos en DEBUG
     }
-    
 }
 #DATABASES = {
 #    'default': {
@@ -158,7 +157,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 if (
-    not DEBUG
+    not os.environ.get("DEBUG", "False") == "True"
 ):  # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
